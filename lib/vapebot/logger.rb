@@ -15,7 +15,7 @@ module Logger
   end
 
   def self.create_dirs
-    %w(logs logs/private).each do |dir|
+    %w(logs logs/private logs/errors).each do |dir|
       Dir.mkdir dir unless Dir.exist? dir
     end
     return true
@@ -42,6 +42,13 @@ module Logger
         f.write("#{datetime} <#{dest}> #{message}\n")
       end
     end
+
+  def self.error_log()
+    error_datetime = Time.now.strftime("%F $T")
+    File.open("logs/errors/#{error_datetime}).log", "a+") do |f|
+      f.write("#{error}\n")
+    end
+  end
   end
 end
 end
